@@ -36,4 +36,4 @@ function connectWithRetry() {
 
 connectWithRetry();
 
-module.exports = () => connection;
+module.exports = connection;
