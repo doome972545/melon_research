@@ -1,0 +1,24 @@
+# frontend/Dockerfile
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy package.json และ package-lock.json
+COPY package*.json ./
+
+# ติดตั้ง dependencies
+RUN npm install
+
+# Copy source code ทั้งหมด
+COPY . .
+
+# Build production
+RUN npm run build
+
+# Serve ด้วย serve
+RUN npm install -g serve
+
+# เปิด port 5173 หรือ port สำหรับ preview
+EXPOSE 5173
+
+CMD ["serve", "-s", "dist", "-l", "5173"]
