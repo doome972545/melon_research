@@ -7,7 +7,6 @@ services:
     container_name: backend_melon
     ports:
       - "5000:5000"
-    restart: always
     environment:
       DB_HOST: db
       DB_USER: melon
@@ -22,16 +21,12 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    volumes:
-      - ./back_melon_project:/app
-      - /app/node_modules
     networks:
       - melon_network
 
   db:
     image: mysql:8.0
     container_name: mysql_melon
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root123
       MYSQL_DATABASE: melon_project_melon
@@ -42,29 +37,16 @@ services:
     volumes:
       - db_data:/var/lib/mysql
       - ./back_melon_project/project_melon.sql:/docker-entrypoint-initdb.d/project_melon.sql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
-    networks:
-      - melon_network
-
-  frontend:
-    build:
-      context: ./frontend_melon_project_new
-    container_name: frontend_melon
-    restart: always
     networks:
       - melon_network
 
   nginx:
-    image: nginx:alpine
+    build:
+      context: ./frontend_melon_project_new
+      dockerfile: Dockerfile
     container_name: nginx_melon
     ports:
       - "80:80"
-    volumes:
-      - ./default.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - frontend
       - backend
