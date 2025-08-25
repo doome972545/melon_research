@@ -76,7 +76,7 @@ services:
   backend:
     build:
       context: ./back_melon_project
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     container_name: backend_melon
     ports:
       - "5000:5000"
