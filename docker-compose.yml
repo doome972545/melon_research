@@ -43,7 +43,7 @@ services:
   nginx:
     build:
       context: ./frontend_melon_project_new
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     container_name: nginx_melon
     ports:
       - "80:80"
