@@ -1,16 +1,17 @@
-import { apiClient } from '@/lib/api-client';
-import { LOGIN } from '@/utils/constant';
-import ThemeContext from '@/utils/ThemeContext';
-import React, { useContext, useEffect, useState } from 'react'
-import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { apiClient } from "@/lib/api-client";
+import { HOST, LOGIN } from "@/utils/constant";
+import ThemeContext from "@/utils/ThemeContext";
+import React, { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { user } = useContext(ThemeContext)
+  console.log(HOST);
+  const { user } = useContext(ThemeContext);
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-  })
+    username: "",
+    password: "",
+  });
   const navigate = useNavigate();
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -23,25 +24,27 @@ const Login = () => {
     event.preventDefault();
     try {
       await apiClient.post(LOGIN, formData).then((response) => {
-        localStorage.setItem('token', response.data.token)
-        toast.success("เข้าสู่ระบบ!!")
-        navigate('/home');
-      })
+        localStorage.setItem("token", response.data.token);
+        toast.success("เข้าสู่ระบบ!!");
+        navigate("/home");
+      });
     } catch (e) {
-      console.log(e)
-      toast.error(e.response.data.message)
+      console.log(e);
+      toast.error(e.response.data.message);
     }
-  }
+  };
   useEffect(() => {
     if (user) {
-      navigate('/home');
+      navigate("/home");
     }
-  }, [navigate])
+  }, [navigate]);
 
   return (
-    <div className='flex justify-center translate-y-[20%]'>
+    <div className="flex justify-center translate-y-[20%]">
       <div className=" max-w-[350px] bg-white bg-gradient-to-t from-white to-[#f1fff8] rounded-[40px] p-6 sm:p-8 border-5 border-white shadow-md shadow-[rgba(45,77,76,0.88)] m-5">
-        <div className="text-center font-black text-[30px] text-green_seccond">เข้าสู่ระบบ</div>
+        <div className="text-center font-black text-[30px] text-green_seccond">
+          เข้าสู่ระบบ
+        </div>
         <form className="mt-5">
           <input
             required
@@ -71,12 +74,19 @@ const Login = () => {
           />
         </form>
         <span className="block text-center mt-4">
-          <p className="text-[#136634] text-[12px] no-underline">ลงชื่อเข้าใช้ระบบประมวนผลสวนเมล่อน</p>
-          <p className="text-[#136634] text-[16px] underline mt-5" onClick={(e =>navigate('/register'))}>ลงทะเบียน</p>
+          <p className="text-[#136634] text-[12px] no-underline">
+            ลงชื่อเข้าใช้ระบบประมวนผลสวนเมล่อน
+          </p>
+          <p
+            className="text-[#136634] text-[16px] underline mt-5"
+            onClick={(e) => navigate("/register")}
+          >
+            ลงทะเบียน
+          </p>
         </span>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
