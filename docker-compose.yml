@@ -97,7 +97,7 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - .:/app
+      - ./back_melon_project/app
       - /app/node_modules
 
   db:
