@@ -54,6 +54,10 @@ services:
     build:
       context: ./frontend_melon_project_new
     container_name: frontend_melon
+    # environment:
+    #   VITE_API_URL:
+    ports:
+      - "5173:5173"
     restart: always
     networks:
       - melon_network

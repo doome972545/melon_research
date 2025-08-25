@@ -1,5 +1,5 @@
-export const HOST = import.meta.env.VITE_API_URL || "";
-
+// export const HOST = import.meta.env.VITE_API_URL || "";
+export const HOST = `${window.location.origin}`;
 export const HOUSE = "/api/house";
 export const AUTH = "/api/auth";
 export const ADMIN = "/api/admin";
