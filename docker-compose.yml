@@ -65,6 +65,7 @@ services:
   nginx:
     image: nginx:alpine
     container_name: nginx_melon
+    restart: always
     ports:
       - "80:80"
     volumes:
